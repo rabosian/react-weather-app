@@ -1,32 +1,33 @@
 import React from "react";
 import { Button, Box } from "@mui/material";
 
-const DisplayButton = () => {
+const DisplayButton = ({ cities, changeLocation }) => {
   return (
-    <div style={{width: '100%'}}>
+    <div style={{ width: "100%" }}>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          p: 1,
-          m: 2          
+          mt: 3,
         }}
       >
-        <Button variant="contained" size="small">
+        <Button
+          style={{ backgroundColor: "#21b6ae", fontFamily: "Finlandica" }}
+          variant="contained"
+          size="small"
+        >
           Current
         </Button>
-        <Button variant="contained" size="small">
-          Seoul
-        </Button>
-        <Button variant="contained" size="small">
-          Vancouver
-        </Button>
-        <Button variant="contained" size="small">
-          Paris
-        </Button>
-        <Button variant="contained" size="small">
-          New York
-        </Button>
+        {cities.map((item) => (
+          <Button
+            style={{ backgroundColor: "#21b6ae", fontFamily: "Finlandica" }}
+            variant="contained"
+            size="small"
+            onClick={}
+          >
+            {item}
+          </Button>
+        ))}
       </Box>
     </div>
   );
