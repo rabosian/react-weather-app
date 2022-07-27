@@ -10,7 +10,7 @@ function App() {
   const [currentCity, setCurrentCity] = useState("");
   const [error, setError] = useState("");
 
-  const cities = ["Toronto1", "vancouver", "seoul", "paris", "new york"];
+  const cities = ["Toronto", "vancouver", "seoul", "paris", "new york"];
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
