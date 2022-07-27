@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Box } from "@mui/material";
 
-const DisplayButton = ({ cities, getCurrentLocation, getWeatherByCityName }) => {
+const DisplayButton = ({ cities, currentCity, handleCityChange }) => {
   return (
     <div style={{ width: "100%" }}>
       <Box
@@ -11,24 +11,28 @@ const DisplayButton = ({ cities, getCurrentLocation, getWeatherByCityName }) => 
           mt: 3,
         }}
       >
+        {/* #21b6ae #405453 */}
         <Button
-          style={{ backgroundColor: "#21b6ae", fontFamily: "Finlandica" }}
+          style={{ 
+            backgroundColor: currentCity == null ? '#405453' : '#21b6ae', 
+            fontFamily: "Finlandica" }}
           variant="contained"
           size="small"
-          onClick={() => getCurrentLocation()}
+          onClick={() => {
+            handleCityChange()
+          }}
         >
           Current
         </Button>
         {cities.map((item) => (
           <Button
-            style={{ backgroundColor: "#21b6ae", fontFamily: "Finlandica" }}
+            key={item}
+            style={{ 
+              backgroundColor: currentCity == item ? '#405453' : '#21b6ae', 
+              fontFamily: "Finlandica" }}
             variant="contained"
             size="small"
-            onClick={(e) => {
-              let city = e.currentTarget.textContent
-              city.replace(' ', '%20')
-              getWeatherByCityName(e.currentTarget.textContent)
-            }}
+            onClick={() => handleCityChange(item)}
           >
             {item}
           </Button>

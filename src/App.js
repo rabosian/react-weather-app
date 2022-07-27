@@ -11,8 +11,11 @@ import DisplayButton from "./component/DisplayButton";
 
 function App() {
   const [weather, setWeather] = useState();
-  const [loading, setLoading] = useState(true)
-  const cities = ['Toronto', 'seoul','vancouver','paris','new york']
+  const [loading, setLoading] = useState(true);
+  const [currentCity, setCurrentCity] = useState("");
+
+  const cities = ["Toronto", "vancouver", "seoul", "paris", "new york"];
+
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       let lat = position.coords.latitude;
@@ -22,32 +25,57 @@ function App() {
   };
 
   const getWeatherByCityName = async (cityname) => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${process.env.REACT_APP_API_KEY}&units=metric`;
-    let response = await fetch(url);
-    let data = await response.json();
-    setWeather(data);
-  }
+    try {
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${process.env.REACT_APP_API_KEY}&units=metric`;
+      setLoading(true);
+      let response = await fetch(url);
+      let data = await response.json();
+      setWeather(data);
+    } catch (e) {
+      console.log(e.message);
+    }
+    setLoading(false);
+  };
 
   const getWeatherByCurrentLocation = async (lat, lon) => {
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}&units=metric`;
-
-    let response = await fetch(url);
-    let data = await response.json();
-    setWeather(data);
+    try {
+      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}&units=metric`;
+      setLoading(true);
+      let response = await fetch(url);
+      let data = await response.json();
+      setWeather(data);
+    } catch (e) {
+      console.log(e.message);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
-    setLoading(true)
-    getCurrentLocation();
-    setLoading(false)
-  }, []);
+    if (!currentCity) {
+      getCurrentLocation();
+    } else {
+      getWeatherByCityName(currentCity);
+    }
+  }, [currentCity]);
+
+  const handleCityChange = (selectedCity) => {
+    if (!selectedCity) {
+      setCurrentCity();
+    } else {
+      setCurrentCity(selectedCity);
+    }
+  };
 
   return (
     <div className="App">
       <div className="background">
         <div className="container">
           {loading ? <CircularProgress /> : <DisplayBox data={weather} />}
-          <DisplayButton cities={cities} getCurrentLocation={getCurrentLocation} getWeatherByCityName={getWeatherByCityName} />
+          <DisplayButton
+            cities={cities}
+            currentCity={currentCity}
+            handleCityChange={handleCityChange}
+          />
         </div>
       </div>
     </div>

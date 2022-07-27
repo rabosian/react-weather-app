@@ -1,11 +1,5 @@
 import React from "react";
 import styles from "./DisplayBox.module.css";
-import DisplayButton from "./DisplayButton";
-// data.name = 'North York;
-// data.main.temp = 23.42
-// data.main.temp_max = 23.42
-// data.main.temp_min = 23.42
-// data.weather.description
 
 const DisplayBox = ({ data }) => {
   return (
