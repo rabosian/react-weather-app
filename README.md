@@ -1,8 +1,7 @@
 # Weather App
 ![image](https://user-images.githubusercontent.com/78003151/188741049-52b132bd-b3f6-42ff-b25a-ad6765840455.png)
-<p>
+
 Demo page is available on [github-page](https://rabosian.github.io/react-weather-app/)
-</p>
 
 ## features
 - User can see the weather based on their current location
